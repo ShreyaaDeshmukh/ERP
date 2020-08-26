@@ -221,145 +221,27 @@
           });
     }
 
-    
-
-    function getCustomerNameAddress(customer_id,other){
+    function getCustomerNameAddress(customer_id){
         // alert("rinky");
         // alert(customer_id);
-       //other 1 means its for add ticket else add purchase
-        if(other == 1 || other == 2){
-            $('#multipleAddress')
-            .find('option')
-            .remove()
-            .end();
-            $('#customer_po')
-            .find('option')
-            .remove()
-            .end();
-            setTimeout(function(){ 
-                console.log("other",other) 
-            console.log("customer",$("#customer_sss").val());
-            var o = $(".baseUrl").val();
-             $.ajax({
-               method: "POST",
-               url: o + "Ccustomer/customer_details_by_id1/"+customer_id,
-             })
-               .done(function(result) {
-                 
-                 var vendorData = JSON.parse(result);
-                 console.log("datadtadadtad",vendorData);
-                 console.log("datadtadadtad",vendorData.data.details.length);
-                 $("#customer_name").text(vendorData.data.details.customer_name);
-                 //$("#customer_address").text(vendorData.data.zip+" "+vendorData.data.cityname+" "+vendorData.data.statename+" "+vendorData.data.countryname);
-                 $("#customer_address").text(vendorData.data.details.customer_address+", "+ vendorData.data.details.cityname+", "+vendorData.data.details.statename+" "+vendorData.data.details.zip);
-                 $("#ship_id").html(vendorData.data.details.customer_address+", "+ vendorData.data.details.cityname+", "+vendorData.data.details.statename+" "+vendorData.data.details.zip);
-                 
-                 // new code after changing it to drop down
-                // var address = result.data.address
-                         // addresszero
-                          
-                          for(var i =1; i< vendorData.data.details.length; i++){
-                            //   $("#multipleAddress").append("<option value='"+vendorData.data.details[i]['customer_address']+"'>"+vendorData.data.details[i]['customer_address']+"</option>");
-                            $("#multipleAddress").append("<option value='"+vendorData.data.details[i]['id']+"'>"+vendorData.data.details[i]['customer_name']+"</option>");
-                          }
-
-                          for(var j =0; j< vendorData.data.customerPO.length; j++){
-                            $("#customer_po").append("<option value='"+vendorData.data.customerPO[j]['customer_po']+"'>"+vendorData.data.customerPO[j]['customer_po']+"</option>");
-                        }
-     
-                 var addresszero = vendorData.data.details.customer_address+", "+ vendorData.data.details.cityname+", "+vendorData.data.details.statename+" "+vendorData.data.details.zip;
-                 //multipleAddress(customer_id,addresszero);
-               }); }, 300);
-        }
-        else{
-            $('#multipleAddress')
-            .find('option')
-            .remove()
-            .end();
-            setTimeout(function(){ 
-                console.log("other",other) 
-            console.log("customer",$("#customer_sss").val());
-            var o = $(".baseUrl").val();
-             $.ajax({
-               method: "POST",
-               url: o + "Ccustomer/customer_details_by_id/"+customer_id,
-             })
-               .done(function(result) {
-                 
-                 var vendorData = JSON.parse(result);
-                 console.log("datadtadadtad",vendorData);
-                 $("#customer_name").text(vendorData.data.customer_name);
-                 //$("#customer_address").text(vendorData.data.zip+" "+vendorData.data.cityname+" "+vendorData.data.statename+" "+vendorData.data.countryname);
-                 $("#customer_address").text(vendorData.data.customer_address+", "+ vendorData.data.cityname+", "+vendorData.data.statename+" "+vendorData.data.zip);
-                 $("#ship_id").html(vendorData.data.customer_address+", "+ vendorData.data.cityname+", "+vendorData.data.statename+" "+vendorData.data.zip);
-                 
-                 // new code after changing it to drop down
-                // var address = result.data.address
-                         // addresszero
-                          
-                          for(var i =1; i< vendorData.data.length; i++){
-                            //   $("#multipleAddress").append("<option value='"+vendorData.data[i]['customer_address']+"'>"+vendorData.data[i]['customer_address']+"</option>");
-
-                              $("#multipleAddress").append("<option value='"+vendorData.data[i]['id']+"'>"+vendorData.data[i]['customer_name']+"</option>");
-                          }
-     
-                 var addresszero = vendorData.data.customer_address+", "+ vendorData.data.cityname+", "+vendorData.data.statename+" "+vendorData.data.zip;
-                 //multipleAddress(customer_id,addresszero);
-               }); }, 300);
-        }
-       
-       
+       var o = $(".baseUrl").val();
+        $.ajax({
+          method: "POST",
+          url: o + "Ccustomer/customer_details_by_id/"+customer_id,
+        })
+          .done(function( result ) {
+			
+            var vendorData = JSON.parse(result);
+            $("#customer_name").text(vendorData.data.customer_name);
+            //$("#customer_address").text(vendorData.data.zip+" "+vendorData.data.cityname+" "+vendorData.data.statename+" "+vendorData.data.countryname);
+            $("#customer_address").text(vendorData.data.customer_address+", "+ vendorData.data.cityname+", "+vendorData.data.statename+" "+vendorData.data.zip);
+			$("#ship_id").html(vendorData.data.customer_address+", "+ vendorData.data.cityname+", "+vendorData.data.statename+" "+vendorData.data.zip);
+			
+			var addresszero = vendorData.data.customer_address+", "+ vendorData.data.cityname+", "+vendorData.data.statename+" "+vendorData.data.zip;
+			multipleAddress(customer_id,addresszero);
+          });
     }
 	
-	function getShipAddress(id){
-        var o = $(".baseUrl").val();
-        console.log($("#multipleAddress").val() == 'undefined');
-        if($("#multipleAddress").val() == 'undefined'){
-            console.log($("#customer_sss").val());
-            var id = $("#customer_sss").val();
-        }
-        else{
-            var id = $("#multipleAddress").val();
-        }
-        $.ajax({
-            method: "POST",
-            url: o + "Ccustomer/ship_to_address/"+id,
-          })
-          .done(function(result) {
-
-            //console.log(result);
-
-            var shipAddress = JSON.parse(result);
-           
-            if(shipAddress.status == 'true'){
-                console.log("shipping",shipAddress);
-                if(shipAddress.data == false){
-                    console.log("Something went again wrong");
-                }
-                else{
-                    var next = shipAddress.data[0];
-                
-                    if('customer_address' in next){
-                            $("#ship_to_address").text(shipAddress.data[0].customer_address+", "+ shipAddress.data[0].cityname+", "+shipAddress.data[0].statename+" "+shipAddress.data[0].zip);
-                            $("#sub").val(shipAddress.data[0].customer_address);
-                            $("#totalAddress").val(shipAddress.data[0].customer_address+", "+ shipAddress.data[0].cityname+", "+shipAddress.data[0].statename+" "+shipAddress.data[0].zip);
-
-                           
-                    }
-                    else{
-                        $("#ship_to_address").text(shipAddress.data[0].ship_to_address+", "+ shipAddress.data[0].cityname+", "+shipAddress.data[0].statename+" "+shipAddress.data[0].zip)
-                        $("#sub").val(shipAddress.data[0].ship_to_address);
-                        $("#totalAddress").val(shipAddress.data[0].ship_to_address+", "+ shipAddress.data[0].cityname+", "+shipAddress.data[0].statename+" "+shipAddress.data[0].zip);
-                        $("#shipName").val(shipAddress.data[0].ship_to_name);
-                    }
-                }
-             
-            }
-            else{
-                console.log("Something went wrong");
-            }
-            //$("#ship_to_address").text(shipAddress.data);
-          })
-    }
+	
 	
 	

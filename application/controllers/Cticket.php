@@ -24,7 +24,7 @@ class Cticket extends CI_Controller {
 	}
 }
 	//Product Add Form
-	public function manage_ticket($r_id)
+	public function manage_ticket()
 	{
 		$CI =& get_instance();
 		// $this->auth->check_admin_auth();
@@ -191,9 +191,6 @@ class Cticket extends CI_Controller {
 	        echo "</select>";
 	    }
 	}
-	
-	
-	
 
 	//Retrive right now inserted data to cretae html
 	public function ticket_details_data($ticket_id)
@@ -249,8 +246,6 @@ public function ticket_print_data($ticket_id)
 	$content = $CI->lticket->ticket_print_data($ticket_id);	
 	$this->template->full_admin_html_view($content);
 }
-
-
 	
 	public function checkExpiry(){
 		$CI =& get_instance();

@@ -1,4 +1,36 @@
 <?php
+
+$con=mysqli_connect("localhost", "root","","wholesale");
+
+$sql = "SELECT * FROM `user_roles` where mob_user_id =$id";
+
+$getData = $con->query($sql);
+
+$userdata = [];
+
+if($getData->num_rows > 0)
+
+{  
+while ($row = $getData->fetch_assoc()) 
+    {
+        $userdata[] = $row;    
+    }
+}
+else{
+   echo "no data found";
+}
+
+if($userdata[0]['Dashboard']==1||$userdata[0]['Dashboard']=="1"){
+    echo '<script>
+    $("#dashboard").show();
+    </script>';
+}
+else{
+    echo '<script>
+    $("#dashboard").hide();
+    </script>';
+}
+
 $CI = & get_instance();
 $CI->load->model('Web_settings');
 $CI->load->model('Users');
@@ -82,8 +114,8 @@ $users = $CI->Users->profile_edit_data();
         </div>
         <!-- sidebar menu -->
         <ul class="sidebar-menu">
-
-            <li class="<?php
+          
+            <li id="dashboard" class="<?php
             if ($this->uri->segment('1') == ("")) {
                 echo "active";
             } else {

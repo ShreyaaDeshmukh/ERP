@@ -12,8 +12,6 @@ class Lusers {
 
     #==============user list================#
 
-
-
     public function user_list() {
 
         // print_r("ajhdj");
@@ -50,11 +48,7 @@ class Lusers {
 
     }
 
-
-
     #=============User Search item===============#
-
-
 
     public function user_search_item($user_id) {
 
@@ -88,13 +82,9 @@ class Lusers {
 
     }
 
+   #==============User add form===========#
 
-
-    #==============User add form===========#
-
-
-
-    public function user_add_form() {
+   public function user_add_form() {
 
         $CI = & get_instance();
 
@@ -109,14 +99,10 @@ class Lusers {
         // print_r($data);exit;
         $userForm = $CI->parser->parse('users/add_user_form', $data, true);
             return $userForm;
-
+        
     }
 
-
-
     #================Insert user==========#
-
-
 
     public function insert_user($data) {
 

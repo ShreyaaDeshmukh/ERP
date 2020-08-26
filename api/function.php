@@ -51,7 +51,7 @@ define("NUMBER_OF_USERS", 25000);
 
             // $getData = mysqli_query($con,"SELECT * FROM license_key where email = '".$username."' AND password = '".md5("gef".$password)."' AND license_key='".$license_key."', AND device_type='".$device_type."'");
             
-			$sql = "UPDATE mobile_user_details SET login_status=0 WHERE id='".$id."'";
+			$sql = "UPDATE mobile_user_details SET login_status=0, device_id='".$newdevice."' WHERE id='".$id."'";
 		
 				if ($con->query($sql) === TRUE) 
 				{
@@ -130,72 +130,10 @@ function checkuser($con, $json)
 		 return $response;
  }
 
- function newlogin($con, $json)
- { 
-		
-	 $username = $json->data->{'username'};
-  
-	 $password = $json->data->{'password'};
-	 
-	 // $license_key = $json->data->{'license_key'};
-  
-	 $device_type = $json->data->{'device_type'};
- 
-	 $device_id = $json->data->{'device_id'};
-  
-	 if($username!='' && $password!='' && $license_key!==''){
-  
-		 $con=mysqli_connect("localhost", "root","","wholesale");
-  
-		 // $getData = mysqli_query($con,"SELECT * FROM license_key where email = '".$username."' AND password = '".md5("gef".$password)."' AND license_key='".$license_key."', AND device_type='".$device_type."'");
-		 
-		 $sql = "SELECT * FROM mobile_user_details where email ='".$username."' AND password ='".md5("gef".$password)."' and device_type='".$device_type."'";
-  
-		 $getData = $con->query($sql);
-  
-		 if($getData->num_rows > 0)
-  
-		 {
-			 $userdata = [];
-  
-			 while ($row = $getData->fetch_assoc()) {
-  
-				 $userdata[] = $row;
-				 
-				 if($userdata[0]['device_id']==""){
-				  $response['data'] = array("status"=>"true","is_verified"=>"false","msg"=>'Please enter license key.',"data"=>[]);
-	 
-				 }
-				 else if($userdata[0]['device_id']!=$device_id){
-					 $response['data'] = array("status"=>"false","is_verified"=>"false","msg"=>'Please enter license key.',"data"=>[]);
-	 
-				 }
-		 
-				 else{
-				 //    if($userdata[0][login_status]==0||$userdata[0][login_status]=="0"){
-					 $response['data'] = array("status"=>"true","is_verified"=>"true","msg"=>'Login successfully', "data"=>$userdata);
- 
-				 }
-		 
-			 }
-  
-		 }else{
-  
-			 $response['data'] = array("status"=>"false","msg"=>'Invalid Credentials');
-  
-		 }	
-  
-	 }else{
-  
-		 $response['data'] = array("status"=>"false","msg"=>'Request parameter Required');
-  
-	 }
-  
-		  return $response;
-  }
 
 
-function checklicense($con, $json)
+
+function newlogin($con, $json)
 { 
        
 	$username = $json->data->{'username'};
@@ -227,7 +165,7 @@ function checklicense($con, $json)
  
 				$userdata[] = $row;
 				
-				if($userdata[0]['license_key']!= $license_key){
+				if($userdata[0][license_key]!= $license_key){
 				 $response['data'] = array("status"=>"false","msg"=>'Please enter valid license number.');
 	
 				}
@@ -437,7 +375,7 @@ function checklicense($con, $json)
 
 				#$query2 = "SELECT product_id FROM product_purchase_details WHERE purchase_id = '".$po."'";
 
-				 $query2 = "SELECT b.customer_po,a.product_id, pi.product_name,a.purchase_detail_id,pi.product_details,ci.customer_name, si.supplier_name FROM product_purchase_details as a, product_purchase as b, product_information as pi, supplier_information as si, customer_information as ci WHERE b.purchase_id = a.purchase_id AND b.supplier_id = si.supplier_id AND b.customer_id = ci.customer_id AND pi.product_id = a.product_id AND a.purchase_id = '".$po."' AND a.r_id = '".$r_id."'";
+				 $query2 = "SELECT a.product_id, pi.product_name,a.purchase_detail_id,pi.product_details,ci.customer_name, si.supplier_name FROM product_purchase_details as a, product_purchase as b, product_information as pi, supplier_information as si, customer_information as ci WHERE b.purchase_id = a.purchase_id AND b.supplier_id = si.supplier_id AND b.customer_id = ci.customer_id AND pi.product_id = a.product_id AND a.purchase_id = '".$po."' AND a.r_id = '".$r_id."'";
 				//  return $query2; die;
 
 				$results2 = mysqli_query($conn, $query2);
@@ -895,22 +833,7 @@ function checklicense($con, $json)
 		$product_id = $resultproduct_id['product_id'];
 		
 		// print_r($product_id);die;
-		$purchase_id = $resultproduct_id['purchase_id'];
-		// print_r($product_id);die;
 		
-		$query1 = "SELECT * FROM product_purchase WHERE purchase_id = '".$purchase_id."'";
-		$result1 = mysqli_query($con, $query1);
-		$datat = mysqli_fetch_assoc($result1);
-		$customer_po = $datat['customer_po'];
-		$customer_id = $datat['customer_id'];
-		
-		
-		$customer  = "SELECT * FROM customer_information WHERE customer_id = '".$customer_id."'";
-		$result2 = mysqli_query($con, $customer);
-		$datac = mysqli_fetch_assoc($result2);
-		$customer_name = $datac['customer_name'];
-		$arr = [];
-		array_push($arr,array("customer_name" => $customer_name, "customer_po" => $customer_po));
 		
 
 		// $query = "SELECT product_name,product_details,total_quantity as quantity,location_unique_key FROM inventory_locations JOIN product_information ON inventory_locations.product_id = product_information.product_id  JOIN purchase_receipt_order ON inventory_locations.product_id = purchase_receipt_order.product_id  WHERE inventory_locations.product_id = '".$product_id."' GROUP BY location_unique_key"; // comment by tapan 17-05-2019
@@ -942,7 +865,7 @@ function checklicense($con, $json)
 			}
 			// print_r($locationInfo);die;
 		}
-		$response['data'] = array("status"=>"true","locations"=>$locationInfo, "customer_name"=>$customer_name,"customer_po"=>$customer_po);
+		$response['data'] = array("status"=>"true","locations"=>$locationInfo);
 		return $response;		
 	}
 	

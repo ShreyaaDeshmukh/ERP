@@ -2,10 +2,10 @@
 <html >
     <head>
         <meta charset="UTF-8">
-        <title>Css Style Pricing Table</title>
+        <title>WMSIMPLIFIED</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
         <!-- <link rel="stylesheet" href="./assets/css/pricinplan.css"> -->
 
@@ -174,17 +174,18 @@ button{
      <div class="demo">
         <div class="container">
             <div class="row text-center">
-                <h1 class="heading-title">Pricing Plans</h1>
+                <h1 class="heading-title" style="color:white"><strong>Pricing Plans</strong></h1>
             </div>
 
-            <div class="row">
+            <div class="row col-md-10" style="margin-left:10%; margin-right:10%;">
 
-            <div class="col-md-3 col-sm-6">
+                <div class="col-md-6 col-sm-6">
                     <div class="pricingTable">
                         <span class="icon"><i class="fa fa-globe"></i></span>
                         <div class="pricingTable-header">
-                            <h3 class="title">Basic</h3>
-                            <span class="price-value">$10</span>
+                            <h3 class="title">Standard</h3>
+                            <span class="price-value">$40 </span>
+                            <p>per user</p>
                         </div>
                         <ul class="pricing-content">
                         <li><h4><strong>1 Month</strong></h4></li>
@@ -192,55 +193,19 @@ button{
                             <li>Get free trial for <strong>15 days.</strong></li>
                             
                         </ul>
-                        <button type="submit" class="pricingTable-signup" name="plan_id" value="price_1H8L0VELvDFHHRjV8zTurlJX*$10">GET</button>
-
-                        <!-- <a href="http://localhost/ciapp/SignUp/" class="pricingTable-signup">GET</a> -->
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="pricingTable">
-                        <span class="icon"><i class="fa fa-globe"></i></span>
-                        <div class="pricingTable-header">
-                            <h3 class="title">Standard</h3>
-                            <span class="price-value">$25</span>
-                        </div>
-                        <ul class="pricing-content">
-                        <li><h4><strong>3 Months</strong></h4></li>
-
-                            <li>Get free trial for <strong>15 days.</strong></li>
-                            
-                        </ul>
-                        <button type="submit" class="pricingTable-signup" name="plan_id" value="price_1H8L0WELvDFHHRjVEggH5L37*$25">GET</button>
+                        <button type="submit" class="pricingTable-signup" name="plan_id" value="price_1H8L0WELvDFHHRjVEggH5L37*40">GET</button>
 
                         <!-- <a href="http://localhost/ciapp/SignUp/" class="pricingTable-signup">GET</a> -->
                     </div>
                 </div>
 
-               <div class="col-md-3 col-sm-6">
-                    <div class="pricingTable">
-                        <span class="icon"><i class="fa fa-briefcase"></i></span>
-                        <div class="pricingTable-header">
-                            <h3 class="title">Business</h3>
-                            <span class="price-value">$50</span>
-                        </div>
-                        <ul class="pricing-content">
-                        <li><h4><strong>6 Months</strong></h4></li>
-
-                            <li>Get free trial for <strong>15 days.</strong></li>
-                         
-                        </ul>
-                         
-                        <button type="submit" class="pricingTable-signup" name="plan_id" value="price_1H8L0WELvDFHHRjVStEvO4R1*$50">GET</button>
-                        <!-- <a href="http://localhost/ciapp/SignUp/" class="pricingTable-signup" >GET</a> -->
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
+        <div class="col-md-6 col-sm-6">
                     <div class="pricingTable">
                         <span class="icon"><i class="fa fa-diamond"></i></span>
                         <div class="pricingTable-header">
                             <h3 class="title">Premium</h3>
-                            <span class="price-value">$90</span>
+                            <span class="price-value">$450</span>
+                            <p>per user</p>
                         </div>
                         <ul class="pricing-content">
 
@@ -250,7 +215,7 @@ button{
                             
                         </ul>
                         <!-- <button type="submit" name="plan_id" value="p2"></button>   -->
-                        <button type="submit" class="pricingTable-signup" name="plan_id" value="price_1H8L0WELvDFHHRjVYOxy42ug*$90">GET</button>
+                        <button type="submit" class="pricingTable-signup" name="plan_id" value="price_1H8L0WELvDFHHRjVYOxy42ug*450">GET</button>
 
                         <!-- <a href="http://localhost/ciapp/SignUp/" class="pricingTable-signup">GET</a> -->
                     </div>
@@ -259,11 +224,9 @@ button{
         </div>
     </div>
 
-     
      </form>
 
-    
- `   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src='http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'></script>
         <script src='js/script.js'></script>
 

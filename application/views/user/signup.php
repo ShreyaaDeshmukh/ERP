@@ -11,6 +11,7 @@
   <link href="<?php echo base_url(); ?>assets/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
   <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'> -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -227,7 +228,6 @@ select option {
   margin: 0em auto;
   background-color: #fff;
   border-radius: 4.2px;
-  overflow: scroll;
 
   box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
 }
@@ -271,7 +271,6 @@ select option {
 
 </head>
 
-<script>alert($_POST['plan_id']);</script>
 <?php
 
 $plnid=$_POST['plan_id'];
@@ -279,29 +278,43 @@ $ar=explode("*",$plnid);
 $pid=$ar[0];
 $amt=$ar[1];
 
-$maxval=0;
-
-if($amt=="$10")
-{
-  $maxval=1;
-
-}elseif($amt=="$25")
-{
-  $maxval=3;
-
-}elseif($amt="$50"){
-
-  $maxval=7;
-
-}else{
-  $maxval=15;
-
-}
-
-//  echo "<script>alert('".$pid."');</script>";
-//  echo "<script>alert('".$amt."');</script>";
+$maxval=100;
 
 ?>
+
+<script>
+$( document ).ready(function() {
+  var plan_amount = <?php echo json_encode($amt); ?>
+  
+  document.getElementById("amt").value="$"+plan_amount;});
+
+function myFunction() {
+
+// var x=1;
+// var y=0;
+
+   x = document.getElementById("web").value;
+  y = document.getElementById("mobile").value;
+
+  if(x==NaN||x==""||x==null||x==0){
+    x=0;
+    // $('#web').val(x); 
+  }
+  if(y==NaN||y==""||y==null||y==0){
+    y=0;
+  }
+
+ var totalval=parseInt(x)+parseInt(y);
+
+ var plan_amount = <?php echo json_encode($amt); ?>
+  
+  var amount=parseInt(plan_amount)*totalval;
+
+  document.getElementById("amt").value="$"+amount;
+}
+</script>
+
+
 <?php $lic = $this->session->lic_key;
  ?>
 
@@ -321,7 +334,6 @@ if($amt=="$10")
           <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?>
         </div>
       </div>
-        
         
        <?php
          $warning = $this->session->flashdata('warning');
@@ -354,7 +366,6 @@ if($amt=="$10")
         </div>
         <?php } ?>
         
-        
         <?php }
         $success = $this->session->flashdata('success');
         if($success)
@@ -374,19 +385,19 @@ if($amt=="$10")
     <div class="row">
       <h4>Personal Details</h4>
       <div class="input-group input-group-icon form-group required">
-        <input type="text" name="full_name" placeholder="Full Name" required/>
+        <input type="text" name="full_name" placeholder="Full Name" maxlength="50" required/>
         <div class="input-icon"><i class="fa fa-user"></i></div>
       </div>
       <div class="input-group input-group-icon form-group required">
-        <input type="number" name="contact_no" placeholder="Contact Number" pattern="^[0–9]$" />
-        <div class="input-icon"><i class="fa fa-mobile"></i></div>
+        <input type="number" name="contact_no" placeholder="Contact Number"  maxlength="13" pattern="^[0–9]$" />
+        <div class="input-icon"><i class="fa fa-phone"></i></div>
       </div>
       <div class="input-group input-group-icon form-group required">
-        <input type="email" name="email_address" placeholder="Email Adress" required/>
+        <input type="email" name="email_address" placeholder="Email Adress" maxlength="50"  required/>
         <div class="input-icon"><i class="fa fa-envelope"></i></div>
       </div>
       <div class="input-group input-group-icon form-group required">
-        <input type="password" name="password" placeholder="Password" required/>
+        <input type="password" name="password" placeholder="Password" minlength="6" maxlength="15" required/>
         <div class="input-icon"><i class="fa fa-key"></i></div>
       </div>
     </div>
@@ -421,7 +432,7 @@ if($amt=="$10")
         <h4>No. of Web Access</h4>
         <div class="input-group input-group-icon">
           <!-- <input type="checkbox" id="terms"/> -->
-          <input type="number" name="no_of_web_access" min="1" max=<?php echo $maxval; ?> placeholder="0" required/>
+          <input type="number" id="web" oninput="myFunction()"  name="no_of_web_access" maxlength="3" value=1 min="1" max=<?php echo $maxval; ?>  required/>
           <div class="input-icon"><i class="fa fa-desktop"></i></div>
      
         </div>
@@ -429,7 +440,7 @@ if($amt=="$10")
       <div class="col-half">
         <h4>No. of Mobiles Access</h4>
         <div class="input-group input-group-icon">
-          <input type="number" name="no_of_mobile_access" min="1" max=<?php echo $maxval; ?> placeholder="0" required/>
+          <input type="number" id="mobile" name="no_of_mobile_access" value=0 oninput="myFunction()" maxlength="3" min="0" max=<?php echo $maxval; ?>  required/>
           <div class="input-icon"><i class="fa fa-mobile-phone"></i></div>
           <!-- <div class="input-icon"> -->
             <input type="checkbox"></div>
@@ -437,14 +448,15 @@ if($amt=="$10")
       </div>
     </div>
 
-    <div class="row">
+  <div class="row">
       <h4>Payment Details <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png" style="vertical:middle">
-    </h4>
+</h4>
+
      
-        <div class='form-row row'>
+<div class='form-row row'>
                             <div class='col-xs-12 form-group card required'>
                                 <h4>Card Number</h4> <input
-                                    autocomplete='off' class='input-group input-group-icon card-number' size='20'
+                                    autocomplete='off' class='input-group input-group-icon card-number' maxlength="20"
                                     type='text' required>
                                     
                             </div>
@@ -453,26 +465,26 @@ if($amt=="$10")
                         <div class='form-row row'>
                             <div class='col-xs-12 col-md-4 form-group cvc required'>
                                 <h4>CVC</h4> <input autocomplete='off'
-                                    class='input-group input-group-icon card-cvc' placeholder='CVC' size='4'
+                                    class='input-group input-group-icon card-cvc' maxlength="3" placeholder='CVC' size='4'
                                     type='text' required>
                             </div>
                             <div class='col-xs-12 col-md-4 form-group expiration required'>
                                 <h4>Expiration Month</h4> <input
-                                    class='input-group input-group-icon card-expiry-month' placeholder='MM' size='2'
+                                    class='input-group input-group-icon card-expiry-month' placeholder='MM' maxlength="2"
                                     type='text' required>
                             </div>
                             <div class='col-xs-12 col-md-4 form-group expiration required'>
                                 <h4>Expiration Year<h4> <input
-                                    class='input-group input-group-icon card-expiry-year' placeholder='YYYY' size='4'
+                                    class='input-group input-group-icon card-expiry-year' placeholder='YYYY' size='4' maxlength="4"
                                     type='text' required>
                             </div>
 
                             <div class='col-xs-12 form-group card required'>
                                 <h4>Amount</h4> <input
-                                    autocomplete='off' value=<?php echo $amt; ?> class='input-group input-group-icon card-number' size='20'
-                                    type='text' readonly >
+                                    id="amt" name="amt"  class='input-group input-group-icon card-number' size='20'
+                                    type='text'  >
                                     
-                            </div>
+                            </div> 
 
                             <input type="hidden" name="plan_id" value=<?php echo $pid; ?>>
                         </div>
@@ -507,6 +519,7 @@ if($amt=="$10")
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
      
 <script type="text/javascript">
+
 $(function() {
     var $form         = $(".require-validation");
   $('form.require-validation').bind('submit', function(e) {

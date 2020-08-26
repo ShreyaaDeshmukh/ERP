@@ -75,7 +75,6 @@ class Lrecieving {
 	//Sub Category Add
 	public function recieving_add_form($r_id)
 	{
-		
 		$CI =& get_instance();
 		$CI->load->model('Recieving');
 		$CI->load->model('Purchases');

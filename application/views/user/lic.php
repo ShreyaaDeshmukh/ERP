@@ -1,3 +1,13 @@
+<?php
+// 		if(isset($licence_session)){
+// 		print_r($licence_session);
+// 		}
+
+//print_r($user_details['username']);
+
+	?>
+	
+
 <!DOCTYPE html>
 <html>
 
@@ -18,6 +28,9 @@
     <![endif]-->
 </head>
 
+	
+
+
 <body class="login-page">
   <div class="login-box">
     <div class="login-logo">
@@ -25,13 +38,7 @@
         <b style="color: white;">WM Simplified</b>
         <!-- <br>Yönetim Paneli</a> -->
     </div>
-	
-	<?php
-// 		if(isset($licence_session)){
-// 		print_r($licence_session);
-// 		}
-	?>
-	
+
     <!-- /.login-logo -->
     <div class="login-box-body">
       <H2 class="login-box-msg">License key</H2>
@@ -88,7 +95,7 @@
         </div>
         <?php }
         
-        // print_r($this->session->userdata('lic_key'));die; ?>
+   print_r($this->session->userdata('lic_key')); ?>
         <form action="<?php echo base_url(); ?>Admin_dashboard/license" method="post">
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="Enter License key" name="license" required />

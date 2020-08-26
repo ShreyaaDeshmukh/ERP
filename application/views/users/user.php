@@ -67,6 +67,8 @@
                                         <th><?php echo display('email') ?></th>
                                         <th><?php echo "Mobile" ?></th>
                                         <th><?php echo "Platform" ?></th>
+                                        <th><?php echo "License Key" ?></th>
+
 
                                         <th><?php echo display('action') ?></th>
                                     </tr>
@@ -86,6 +88,10 @@
                                                     ?></td>
                                               <td><?php
                                                     echo $user["device_type"];                                                  
+                                                    ?></td>
+                                                
+                                                <td><?php
+                                                    echo $user["license_key"];                                                  
                                                     ?></td>
                                                 <td>
                                         <center>

@@ -77,12 +77,12 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
                  
-          <div class="form-group has-feedback">
+          <!-- <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="license_key" name="license_key" required />
          
          
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
+          </div> -->
           <input type="hidden" class="form-control" placeholder="device_type" name="device_type" value="Web" required />
 
           <div class="row">

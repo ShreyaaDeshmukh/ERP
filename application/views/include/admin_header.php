@@ -315,9 +315,7 @@ $r_id = $this->session->r_id;
                             <ul class="treeview-menu">
                                 <!--<li><a href="<?php echo base_url('Ccustomer') ?>"><?php echo display('add_customer') ?></a></li>-->
                                 <li><a href="<?php echo base_url('Ccustomer/manage_customer/'.$r_id) ?>"><?php echo display('manage_customer') ?></a></li>
-                                <li><a href="<?php echo base_url('Ccustomer/manage_ship_to_customer/'.$r_id) ?>">Manage Ship To</a></li>
                                 <li><a href="<?php echo base_url('Ccustomer/import_customers/'.$r_id) ?>"><?php echo "Import Customers" ?></a></li>
-                                <li><a href="<?php echo base_url('Ccustomer/import_shipTo/'.$r_id) ?>"><?php echo "Import Ship To" ?></a></li>
                                 <!--<li><a href="<?php echo base_url('Ccustomer/credit_customer') ?>"><?php echo display('credit_customer') ?></a></li>
                                 <li><a href="<?php echo base_url('Ccustomer/paid_customer') ?>"><?php echo display('paid_customer') ?></a></li>-->
                             </ul>
@@ -499,7 +497,217 @@ $r_id = $this->session->r_id;
                     <li><a href="<?php echo base_url('Admin_dashboard/product_sales_reports_date_wise') ?>"><?php echo display('sales_report_product_wise') ?></a></li>
                     <li><a href="<?php echo base_url('Admin_dashboard/total_profit_report') ?>"><?php echo display('profit_report') ?></a></li>
                 </ul>
+                
             </li>*/ ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="treeview <?php
+            if ($this->uri->segment('1') == ("Ccategory") || $this->uri->segment('1') == ("Cproduct") || $this->uri->segment('1') == ("Ccustomer") || $this->uri->segment('1') == ("Caislelocation") || $this->uri->segment('1') == ("Clocation") || $this->uri->segment('1') == ("Cshipping")) {
+                echo "active";
+            } else {
+                echo " ";
+            }
+            ?>">
+                <a href="#">
+                    <i class="ti-tag"></i><span><?php echo 'Role Management' ?></span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="treeview <?php
+						if ($this->uri->segment('1') == ("Ccategory")) {
+							echo "active";
+						} else {
+							echo " ";
+						}
+						?>">
+                            <a href="<?php echo base_url('Croles/') ?>">
+								<i class="ti-tag"></i><span><?php echo 'Assign Roles' ?></span>
+								<!-- <span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span> -->
+							</a>
+						
+					</li>
+
+        
+                  				</ul>
+            </li>
+			
+			
+            <!-- Product menu end -->
+             <!-- Receipt menu start -->
+            <?php /*<li class="treeview <?php
+            if ($this->uri->segment('1') == ("Creceipt")) {
+                echo "active";
+            } else {
+                echo " ";
+            }
+            ?>">
+                <a href="#">
+                    <i class="ti-receipt"></i><span><?php echo display('receipt') ?></span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <!--<li><a href="<?php echo base_url('Creceipt') ?>"><?php echo display('add_receipt') ?></a></li>-->
+                    <li><a href="<?php echo base_url('Creceipt/manage_receipt') ?>"><?php echo display('manage_receipt') ?></a></li>
+                </ul>
+            </li> */ ?>
+            <!-- Purchase menu end -->
+
+
+            <!-- Loction menu start -->
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+
+
+            
+
+            <!-- Purchase menu end -->
+
+
+			
+			<!-- Loction menu start -->
+            
+            <!-- Purchase menu end -->
+			
+			
+            <!-- Stock menu start --> 
+        <!--<li class="treeview <?php
+        if ($this->uri->segment('1') == ("Creport")) {
+            echo "active";
+        } else {
+            echo " ";
+        }
+        ?>">
+            <a href="#">
+                <i class="ti-bar-chart"></i><span><?php echo display('stock') ?></span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?php echo base_url('Creport') ?>"><?php echo display('stock_report') ?></a></li>
+                <li><a href="<?php echo base_url('Creport/stock_report_supplier_wise') ?>"><?php echo display('stock_report_supplier_wise') ?></a></li>
+                <li><a href="<?php echo base_url('Creport/stock_report_product_wise') ?>"><?php echo display('stock_report_product_wise') ?></a></li>
+            </ul>
+        </li>-->
+        <!-- Stock menu end -->
+
+
+        <?php
+        // if ($this->session->userdata('user_type') == '1') {
+            ?>
+
+
+
+            <!-- Report menu start -->
+            <?php /*<li class="treeview <?php
+            if ($this->uri->segment('2') == ("all_report") || $this->uri->segment('2') == ("todays_sales_report") || $this->uri->segment('2') == ("todays_purchase_report") || $this->uri->segment('2') == ("product_sales_reports_date_wise") || $this->uri->segment('2') == ("retrieve_dateWise_PurchaseReports") || $this->uri->segment('2') == ("total_profit_report") || $this->uri->segment('2') == ("retrieve_dateWise_SalesReports")) {
+                echo "active";
+            } else {
+                echo " ";
+            }
+            ?>">
+                <a href="#">
+                    <i class="ti-book"></i><span><?php echo display('report') ?></span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo base_url('Admin_dashboard/all_report') ?>"><?php echo display('todays_report') ?></a></li>
+                    <li><a href="<?php echo base_url('Admin_dashboard/todays_sales_report') ?>"><?php echo display('sales_report') ?></a></li>
+                    <li><a href="<?php echo base_url('Admin_dashboard/todays_purchase_report') ?>"><?php echo display('purchase_report') ?></a></li>
+                    <li><a href="<?php echo base_url('Admin_dashboard/product_sales_reports_date_wise') ?>"><?php echo display('sales_report_product_wise') ?></a></li>
+                    <li><a href="<?php echo base_url('Admin_dashboard/total_profit_report') ?>"><?php echo display('profit_report') ?></a></li>
+                </ul>
+            </li>*/ ?>
+            
+            <!-- Software Settings menu start -->
+            <li class="treeview <?php
+            // if ($this->uri->segment('1') == ("Company_setup") || $this->uri->segment('1') == ("User") || $this->uri->segment('1') == ("Cweb_setting") || $this->uri->segment('1') == ("Language")) {
+            //     echo "active";
+            // } else {
+            //     echo " ";
+            // }
+            ?>">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             <!-- Software Settings menu start -->
             <li class="treeview <?php

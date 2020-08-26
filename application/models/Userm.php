@@ -142,6 +142,20 @@ class Userm extends CI_Model {
 		
     }
 
+    #============Insert user to database========#
+	
+    public function assign_roles($data) {
+        
+        $this->db->insert('user_roles', $data);
+        echo $insert_id = $this->db->insert_id();        
+        $this->db->trans_complete();        
+        return $insert_id;
+                                
+                
+  
+    }
+
+
     #==============User edit data===============#
 
     public function retrieve_user_editdata($user_id) {

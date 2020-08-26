@@ -132,6 +132,7 @@ if (!defined('BASEPATH'))
                 'contact_no' => $this->input->post('mobile'),
                 'username' => $this->input->post('email'),
                 'password' =>$this->input->post('password'),
+                'user_type'=>2,
                 'license_key'=>$l_key,
                 'device_type'=>$this->input->post('platform'),
                 // 'password' => md5("gef" . $this->input->post('password')),
@@ -157,6 +158,18 @@ if (!defined('BASEPATH'))
             );
    
             $result1=$this->userm->user_entry($data1);
+
+
+            $data2 = array(
+                'mob_user_id'  =>$result1
+              
+            
+            );
+   
+            $result2=$this->userm->assign_roles($data2);
+
+
+            
           }
            
             
@@ -176,7 +189,6 @@ if (!defined('BASEPATH'))
            //  }
             else{
                 $sql = "UPDATE license_key SET is_assigned=1,assigned_user_id=$result where license_key='".$l_key."'";
-
 
                 if ($con->query($sql) === TRUE) {
                     echo "Record updated successfully";
@@ -227,9 +239,6 @@ if (!defined('BASEPATH'))
         $user_id = $this->input->post('user_id');
         // print_r($user_id);die;
         $this->Userm->update_user($user_id);
-
-
-
 
         $this->session->set_userdata(array('message' => display('successfully_updated')));
         redirect(base_url('User/manage_user'));

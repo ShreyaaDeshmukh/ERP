@@ -5,7 +5,6 @@ if (!defined('BASEPATH'))
 
     require_once('./application/libraries/stripe-php/init.php');
 
-
 class Admin_dashboard extends CI_Controller {
 
     function __construct() {
@@ -47,7 +46,6 @@ class Admin_dashboard extends CI_Controller {
         $this->load->model('Web_settings');
         $this->load->model('Payment');
        
-
         $total_customer = $this->Customers->count_customer($r_id);
         $total_product = $this->Products->count_product($r_id);
         $total_suppliers = $this->Suppliers->count_supplier($r_id);
@@ -104,12 +102,9 @@ class Admin_dashboard extends CI_Controller {
 		}else{
 			$today_fully_received_line_item = "";
 		}
-		
-		
+			
         $today_partially_ticket = $this->Purchases->today_partially_ticket($r_id);
-        
-		 
-        
+              
 		if(!empty($today_partially_ticket)){
 			$today_partially_ticket = count($today_partially_ticket);
 		}else{
@@ -117,8 +112,6 @@ class Admin_dashboard extends CI_Controller {
 		}
 		
         $today_fully_ticket = $this->Purchases->today_fully_ticket($r_id);
-        
-   
         
 		if(!empty($today_fully_ticket)){
 			$today_fully_ticket = count($today_fully_ticket); 
@@ -185,8 +178,6 @@ echo 1243;die;	 */
 			$month_partially_ticket = 0;
 		}
 		
-		
-		
 		$month_partial_received = $this->Purchases->month_partial_received($r_id);
 		
 		if(!empty($month_partial_received)){
@@ -195,9 +186,7 @@ echo 1243;die;	 */
 			$month_partial_received = 0;
 		}
 		
-		
-		
-		if($today_total_purchase_line_item!='' && $today_fully_received_line_item!='' && $today_partially_received_line_item!=''){
+			if($today_total_purchase_line_item!='' && $today_fully_received_line_item!='' && $today_partially_received_line_item!=''){
 			$total_blank_line_item_daily = $today_total_purchase_line_item - ($today_fully_received_line_item + $today_partially_received_line_item);
 		}else{
 			$total_blank_line_item_daily = 0;
@@ -234,6 +223,7 @@ echo 1243;die;	 */
         $total_profit = ($sales_report[0]['total_sale'] - $sales_report[0]['total_supplier_rate']);
 		 	 $currency_details = $this->Web_settings->retrieve_setting_editdata();
         // $data['username']=$this->session->userdata('username');
+
         $data = array(
             'username'=> $this->session->userdata('username'),
             'title' => 'Dashboard',
@@ -312,7 +302,7 @@ echo 1243;die;	 */
             $this->template->full_admin_html_view($content);
         }
     }
-  
+
     #==============Todays_sales_report============#
 
     public function todays_sales_report() {
@@ -663,11 +653,13 @@ echo 1243;die;	 */
             $config['bcc_batch_mode'] = FALSE; // TRUE or FALSE (boolean)    Enable BCC Batch Mode.
             $config['bcc_batch_size'] = 200; //
 	  
-            $this->load->library('email');
-            $this->email->set_newline("\r\n");
-            $this->email->initialize($config);
+	  
+	    $this->load->library('email');
+		$this->email->set_newline("\r\n");
+        $this->email->initialize($config);
 		   $email_body ="<div>Your license key is ".$userdata['licence_session']." </div>";
        
+   
           $this->email->from('testmindcrew1001@gmail.com','Mindcrew Technologies');
 		  $this->email->to($email);
           // $this->email->to('tayyabjohar@gmail.com');
@@ -776,7 +768,7 @@ echo 1243;die;	 */
          
             $device_type = "Web";
 
-         $nm=preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+        $nm=preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 
             if($nm==0||$nm=="0"){
                 $device_type = "Web";   
@@ -786,175 +778,179 @@ echo 1243;die;	 */
                 $device_type = "Mobile";
               }
 
-            //   echo  $device_type;
+        //     //   echo  $device_type;
 
            $device_id = '';
 
             $localIP = $_SERVER['REMOTE_ADDR'];
              
               $device_id = $localIP;
-
-    //          ob_start();
-    //         system('ipconfig/all');
-    //         $mycom=ob_get_contents(); 
-    //         ob_clean(); 
-    //         $findme = "Physical";
-    //         $pmac = strpos($mycom, $findme); 
-    //         $mac=substr($mycom,($pmac+36),17);
-
-	// $device_id= $mac;
         
-            if($username!='' && $password!='' && $license_key!==''){
+        //     if($username!='' && $password!='' && $license_key!==''){
          
                 $con=mysqli_connect("localhost", "root","","wholesale");
-         
-                // $getData = mysqli_query($con,"SELECT * FROM license_key where email = '".$username."' AND password = '".md5("gef".$password)."' AND license_key='".$license_key."', AND device_type='".$device_type."'");
                 
                 $sql = "SELECT * FROM user_login where username ='".$username."' AND password ='".$password."' and device_type='".$device_type."' ";
-
-
-                 
+                
 
                 $getData = $con->query($sql);
 
                 if($getData->num_rows > 0)
          
-                {
+                {  
+                   
+
                     $userdata = [];
          
                     while ($row = $getData->fetch_assoc()) {
          
                         $userdata[] = $row;
-                
-                        // echo "  uyser enter";
-                        // echo $license_key;
 
-                        // echo "from db ";
-                        // echo $userdata[0]['license_key'];
-    
-                        if($userdata[0]['license_key']==""||$userdata[0]['license_key']==null){
-                           
-                            echo "blank*****";
-
-                        }
-                        else{
-
-                        if($userdata[0]['license_key']!= $license_key)
-                        {
-                            // echo "invalid license key";
-
-                         $this->session->set_flashdata('warning', 'Please enter valid license number.');
-                         return $this->load->view('user/admin_login_form');	
-                        }
-
-                        if($userdata[0]['device_id']==''||$userdata[0]['device_id']==null)
-                        {
-                            $sql = "UPDATE user_login SET login_status=1, device_id='".$device_id."' WHERE id='".$userdata[0]['id']."'";
-         
-                            if ($con->query($sql) === TRUE) {
-                           //    $response['data'] = array("status"=>"true","msg"=>'Login Successfully', "data"=>$userdata);
-                           //    echo "successMMM";
-
-                              $this->session->set_userdata($user_login);
-                             return    $this->output->set_header("Location: " . base_url(), TRUE, 302);
-  
-                                 }
-                                  else{
-                                    $response['data'] = array("status"=>"true","msg"=>'Something went wronng');
-                                   //  echo "fail";
-
-                                  }
-
-                            // $this->session->set_flashdata('warning', 'You are already loggedin on another device.');
-                            // return $this->load->view('user/admin_login_form');
-                         }
-                        else{
-
-                           if($userdata[0]['device_id']==$device_id)
-                        {
-                        //  echo "inside else";
-                        //  echo "db user";
-                        //  echo $userdata[0]['device_id'];
-
-                        //  echo "current device";
-                        // echo $device_id;
-
-                        
-
-                        //    $response['data'] = array("status"=>"true","msg"=>'Login Successfully', "data"=>$userdata);
+                        if(($userdata[0]['login_status']=="1"||$userdata[0]['login_status']==1)&& ($userdata[0]['license_key']!=""||$userdata[0]['license_key']!=null) ){
+                        $response['data'] = array("status"=>"true","msg"=>'Login Successfully', "data"=>$userdata);
                         $this->session->set_userdata($user_login);
                         return    $this->output->set_header("Location: " . base_url(), TRUE, 302);
-
+                           
                         }
                         else{
-                            $this->session->set_flashdata('warning', 'This license key is already in use on another device.');
-                            return $this->load->view('user/admin_login_form');
+                            //    print_r($userdata[0]);
+                            //    return true;
+
+                            $user_details = array('username'=>$userdata[0]['username'],'password'=>$userdata[0]['password'],
+                            'license_key'=>$userdata[0]['license_key'],
+        
+                            );
+
+                            // print_r($user_details);
+                            $_SESSION["user_details"]=$user_details;
+
+                            
+
+                            $this->load->view('user/lic',$user_details);  
+
+
+                        //     if($userdata[0]['license_key']==""||$userdata[0]['license_key']==null){
+                           
+                        //         echo "blank*****";
+    
+                        //     }
+                        //     else if($userdata[0]['license_key']!= $license_key){  
+
+                        //         $this->session->set_flashdata('warning', 'Please enter valid license number.');
+                        //         return $this->load->view('user/admin_login_form');	
+                                
+                        //       }
+            
+                        //     else{
+
+                        //     $sql = "UPDATE user_login SET login_status=1 WHERE id='".$userdata[0]['id']."'";
+         
+                        //     if ($con->query($sql) === TRUE) 
+                        //     {
+                         
+                        //       $this->session->set_userdata($user_login);
+                        //       return    $this->output->set_header("Location: " . base_url(), TRUE, 302);
+  
+                        //     }
+                        //     else{
+                        //     $response['data'] = array("status"=>"true","msg"=>'Something went wronng');
+                        //       echo "fail";
+
+                        //     }
+
+                        //  }
+          
+        //          return $response;            
                         }
-                     }
-                
                     }
-                   
                 }
-         
-                }else{
-
-
-
-                    $this->session->set_flashdata('warning', 'Please enter valid login details !');
+                else
+                {
+                    $this->session->set_flashdata('warning', 'Email and password not match !');
                     return $this->load->view('user/admin_login_form');
-                 
-                }	
-         
-            }else{
-         
-                $this->session->set_flashdata('warning', 'Please enter all required details !');
-                return $this->load->view('user/admin_login_form');         
-            }
-         
-                 return $response;            
-        }
-        else{
-            $this->session->set_flashdata('warning', 'Email and password not match !');
-            return $this->load->view('user/admin_login_form');
 
-        }   
+                }   
+           }
         }
-     }
+    }
 
-        public function license(){  
+        public function license(){ 
+            
+           $username=$_SESSION["user_details"]["username"];
+           $password=$_SESSION["user_details"]["password"];
+           $license_key=$_SESSION["user_details"]["license_key"];
+           
 			 if(isset($_SESSION['email_sent'])){
               unset($_SESSION['email_sent']);
               }
 			// $this->session->unset_flashdata("email_sent"," A license key has been sent to your email address");
-            $this->form_validation->set_rules('license', 'License', 'required|exact_length[12]');     
+            $this->form_validation->set_rules('license', 'License', 'required|exact_length[15]');     
             if ($this->form_validation->run() == FALSE){
                 $this->load->view('user/lic');
             }
-            else{       
-                if($this->session->userdata['licence_session'] == $this->input->post('license')){               
-                    $userdata= $this->session;                      
-                    $result = $this->users->login_insert($userdata);//users models  
-                    // print_r($result);die;
-                    if($result>0){
-                        // $this->session->sess_destroy(); 
-                        $this->output->set_header("Location: " . base_url(), TRUE, 302);
-                    } 
-                    else{
-                         $this->session->set_flashdata('warning', 'license key already exists !');
-                        return $this->load->view('user/lic.php');
-                        // echo "license key already exists";
+            else{   
+                
+                $con=mysqli_connect("localhost", "root","","wholesale");
+                
+                $sql = "SELECT * FROM user_login where username ='".$username."' AND password ='".$password."' ";
+             
+                $getData = $con->query($sql);
+
+                if($getData->num_rows > 0)
+         
+                {  
+                    $user_login=array('username'=>$username,'password'=>$password);
+                  
+                    $result = $this->users->loginMe($user_login);
+
+                    $userdata = [];
+         
+                    while ($row = $getData->fetch_assoc()) {
+         
+                        $userdata[] = $row;
+
+                        if($license_key == $this->input->post('license')){               
+                            // $userdata= $this->session;      
+                                    
+                            $sql = "UPDATE user_login SET login_status=1 WHERE id='".$userdata[0]['id']."'";
+                 
+                            if ($con->query($sql) === TRUE) 
+                            {
+                            
+                                $this->session->set_userdata($user_login);
+                                return    $this->output->set_header("Location: " . base_url(), TRUE, 302);
+        
+                            }
+                            else{
+                            $response['data'] = array("status"=>"true","msg"=>'Something went wronng');
+                                echo "fail";
+        
+                            }
+                            
+                            // $result = $this->users->login_insert($userdata);//users models  
+                            // print_r($result);die;
+                            if($result>0){
+                                // $this->session->sess_destroy(); 
+                                $this->output->set_header("Location: " . base_url(), TRUE, 302);
+                            } 
+                            else{
+                                 $this->session->set_flashdata('warning', 'license key already exists !');
+                                return $this->load->view('user/lic.php');
+                                // echo "license key already exists";
+                            }
+                        }
+                        else{
+                            
+                            // echo "invalid lic_key";
+                             $this->session->set_flashdata('invalid_key', 'invalid lic_key !');
+                                return $this->load->view('user/lic.php');
+                        }
+
                     }
+                
                 }
-                else{
-                    
-                    // echo "invalid lic_key";
-                     $this->session->set_flashdata('invalid_key', 'invalid lic_key !');
-                        return $this->load->view('user/lic.php');
-                }
-                    
+         
             }
-    
-    
         }
 
     //Valid captcha check
@@ -1043,6 +1039,11 @@ echo 1243;die;	 */
         }
     }
 
+
+
+
+  
+	 
 	// public function getPlanId(){
 
 	// 	$pid=$_POST['plan_id'];
@@ -1061,11 +1062,13 @@ echo 1243;die;	 */
 		$stripe = new \Stripe\StripeClient('sk_test_51GyDZVELvDFHHRjV8uydQHeKfpp5nM2JI7H1pBIGDxRFYCH7aUSTmF9QiXXhOHMVzUbT0xTBnDDFVwSrqaQVR7GH00WXGdUw1n');
 
          $inputdata=$this->input;
-       
-         $token=$this->input->post('stripeToken');
+         
+        //  echo ;
+         
+
+		 $token=$this->input->post('stripeToken');
 		 $full_name=$this->input->post('full_name');
-         $email_address=$this->input->post('email_address');
-        
+		 $email_address=$this->input->post('email_address');
 		//  echo $token;
 	  
 		//  \Stripe\Charge::create ([
@@ -1086,17 +1089,13 @@ echo 1243;die;	 */
 
            if($cust!=''||$cust!=null){
 
-			$card=$this->addCard($cust,$inputdata);
+			$new_plan_id=$this->addCard($cust,$inputdata);
 
-			if($card!=''||$card!=null){
-         
-                
-                $subscription=$this->subscribeUser($cust,$inputdata);
-
-               
-	          
+			if($new_plan_id!=''||$new_plan_id!=null){
+				$subscription=$this->subscribeUser($new_plan_id,$cust,$inputdata);
+	
 				if($subscription!=''||$subscription!=null){
-					$userdata=$this->addUser($inputdata);
+					$userdata=$this->addUser($inputdata,$cust);
 
 					if($userdata!=''||$userdata!=null){
 						$this->session->set_flashdata('success', 'Signup successfully.');   
@@ -1121,7 +1120,7 @@ echo 1243;die;	 */
 			   else{
 				$this->session->set_flashdata('failed', 'Something went wrong.');   
 			   }
-        
+
 		   }
 		   else{
 			$this->session->set_flashdata('failed', 'Something went wrong.');   
@@ -1144,47 +1143,315 @@ echo 1243;die;	 */
 		//  print_r($cust);
 		
 		//  redirect('/Welcome');
-	 }
+     }
+     
+     public function addaccess()
+	 {
+        
+
+        $email = $this->session->userdata('username'); 
+
+		\Stripe\Stripe::setApiKey($this->config->item('stripe_secret'));
+
+		$stripe = new \Stripe\StripeClient('sk_test_51GyDZVELvDFHHRjV8uydQHeKfpp5nM2JI7H1pBIGDxRFYCH7aUSTmF9QiXXhOHMVzUbT0xTBnDDFVwSrqaQVR7GH00WXGdUw1n');
+
+         $inputdata=$this->input;
+         
+		 $token=$this->input->post('stripeToken');
+
+         $amt=$this->input->post('amt');
+
+         $amt=$this->input->post('amt');
+         $plan_id=$this->input->post('plan_id');
+
+          $ar=explode("$",$amt);
+
+                $amount=$ar[1];
+
+
+                $con=mysqli_connect("localhost", "root","","wholesale");
+                
+                $sql = "SELECT * FROM user_login where username ='".$email."' ";
+                
+
+                $getData = $con->query($sql);
+
+                if($getData->num_rows > 0)
+         
+                {  
+                   
+                    $userdata = [];
+         
+                    while ($row = $getData->fetch_assoc()) {
+         
+                        $userdata[] = $row;
+
+                        $customer_id=$userdata[0]['customer_id'];
+
+                        $card=$stripe->customers->createSource(
+                            $customer_id,
+                        ['source' => $token]
+                       );
+
+                          if($card!=''||$card!=null){
+
+                            
+                $basic_plan_id=$plan_id;
+
+                $retrieved_plan=$stripe->plans->retrieve(
+                    $basic_plan_id,
+                    []
+                  );
+
+                  if($retrieved_plan!='' && $retrieved_plan!=null){
+
+                    $new_plan=$stripe->plans->create([
+                        'amount' => $amount*100,
+                        'currency' => 'usd',
+                        'interval' => $retrieved_plan['interval'],
+                        'product' => 'prod_HhkV0jF07rY0mp',
+                        // "trial_period_days"=>15
+                      ]);
+                 
+                  $new_paln_id=$new_plan->id;
+
+                    $timestamp=strtotime("+15 Days");
+
+                    $subscription=$stripe->subscriptions->create([
+                        'customer' => $customer_id,
+                        'items' => [
+                          ['price' => $new_paln_id],
+                        ],
+                        'trial_end' => $timestamp,
+            
+                      ]);
+                    
+
+                      if($subscription!=''||$subscription!=null){
+
+                        $no_of_web_access=$this->input->post('no_of_web_access');
+                        $no_of_mobile_access=$this->input->post('no_of_mobile_access');
+
+                        $updated_web_access=$userdata[0]['no_of_web_access']+$no_of_web_access;
+
+                        $updated_mobile_access=$userdata[0]['no_of_mobile_access']+$no_of_mobile_access;
+
+                         
+                        $newval='';
+                 
+                        $generatedKeys = array();		
+                        
+                        if($no_of_web_access==''||$no_of_web_access==null){
+                            $no_of_web_access=0;
+                        }
+                
+                        if($no_of_mobile_access==''||$no_of_mobile_access==null){
+                            $no_of_mobile_access=0;
+                        }
+                
+                        $totalkeys=$no_of_web_access+$no_of_mobile_access;
+                
+                        $con=mysqli_connect("localhost", "root","","wholesale");
+                
+                        // $sql = "INSERT INTO user(`full_name`, `contact_no`, `email_address`, `password`, `dob`, `gender`, `no_of_web_access`,no_of_mobile_access) VALUES('".$full_name."','".$contact_no."','".$email_address."','".$password."','".$dob."','".$gender."','".$no_of_web_access."','".$no_of_mobile_access."')";
+                    
+                        $sql = "UPDATE user_login SET no_of_web_access='".$updated_web_access."',no_of_mobile_access='".$updated_mobile_access."'  WHERE id='".$userdata[0]['id']."'";
+                        
+                        
+                        if ($con->query($sql) === TRUE) {
+                        //   echo "New record created successfully";
+                        $a=array();
+                          
+                        $sql='';
+                  
+                        for ($i = 0; $i < $totalkeys; $i++)
+                         {
+                             $val="";
+                            $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; 
+                
+                            $Gkey=time().''.substr(str_shuffle($str_result),  
+                            0, 5);
+                              
+                            $sql = "INSERT INTO license_key(`user_id`, `license_key`) VALUES('".$userdata[0]['id']."','".$Gkey."')";
+                             
+                              //  echo $Gkey;
+                
+                            if ($con->query($sql) === TRUE) {
+                                //echo "key inserted";
+                
+                                // $keyname="Key'".$i+1."'";
+                                
+                                $k=" Key";
+                                $n=$i+1;
+                    
+                                $keyname=$k." ".$n;
+                
+                                //echo $keyname;
+                
+                              $a[]=array($keyname=>$Gkey) ;
+                
+                      // $generatedKeys[$i+1][$keyname]=$unq ;
+                                 
+                    }
+                
+                            foreach ($a as $key => $value) {
+                                
+                                // echo $key . ':' . $value . '<br>';
+                
+                                $v=$value;
+                
+                                foreach ($v as $key => $value) {
+                               $val= $val.''. $key .':'. $value.',' ;
+                
+                               $newval=$val;
+                                }
+                            }
+                
+                        
+                         }
+                            $strng = str_replace('[{', '**', $a);
+                
+                            // $msg= echo 'your license key is';
+                
+                           // echo $val;
+                                 
+                         $mailresult=   $this->sendSignupMail($email,$newval);
+                         
+                            if($mailresult==true)
+                            {
+                         
+                                $this->session->set_flashdata('success', 'Signup successfully.');   
+                                
+                            //	echo "success : '".$userdata."'" ;
+        
+                                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                                <script>
+                                
+                                swal("Registered Successfully....!! Please check your registered email for Access Keys.");
+                                
+                                </script>';
+                                
+                               // $this->load->view('user/admin_login_form');
+                         
+                            }
+
+                         else{
+                
+                         }
+                
+                        } 
+                        else {
+                          echo "Error: " . $sql . "<br>" . $con->error;
+                        }
+
+                      }
+                 // }
+                    }
+            }
+
+                    }
+                }
+                else
+                {
+                    $this->session->set_flashdata('warning', 'Email and password not match !');
+                    return $this->load->view('user/admin_login_form');
+
+                } 
+
+		
+
+		// 	$card=$stripe->customers->createSource(
+		// 		$cust->id,
+		// 		['source' => $token]
+		// 	);
+
+		//   $subscription=$stripe->subscriptions->create([
+		// 	'customer' => $cust->id,
+		// 	'items' => [
+		// 	  ['price' => 'price_1H4o9WD1A36x6Y7CCm0f9Xem'],
+		// 	],
+		//   ]);
+
+		//   echo $subscription;
+
+		//  print_r($cust);
+		
+		//  redirect('/Welcome');
+     }
+
 
 	 function addCard($cust,$inputdata){
 
-		\Stripe\Stripe::setApiKey($this->config->item('stripe_secret'));
+  	\Stripe\Stripe::setApiKey($this->config->item('stripe_secret'));
 		$stripe = new \Stripe\StripeClient('sk_test_51GyDZVELvDFHHRjV8uydQHeKfpp5nM2JI7H1pBIGDxRFYCH7aUSTmF9QiXXhOHMVzUbT0xTBnDDFVwSrqaQVR7GH00WXGdUw1n');
 
-		$token=$inputdata->post('stripeToken');
+        $token=$inputdata->post('stripeToken');
+        $amt=$inputdata->post('amt');
+
+        $ar=explode("$",$amt);
+
+                $amount=$ar[1];
 
 		 		$card=$stripe->customers->createSource(
 				$cust->id,
 				['source' => $token]
-			);
+            );
 
-			return $card;
+            if($card!=''||$card!=null){
+
+                $basic_plan_id=$inputdata->post('plan_id');
+
+               $retrieved_plan=$stripe->plans->retrieve(
+                    $basic_plan_id,
+                    []
+                  );
+
+                  if($retrieved_plan!='' && $retrieved_plan!=null){
+
+                    $new_plan=$stripe->plans->create([
+                        'amount' => $amount*100,
+                        'currency' => 'usd',
+                        'interval' => $retrieved_plan['interval'],
+                        'product' => 'prod_HhkV0jF07rY0mp',
+                        // "trial_period_days"=>15
+                      ]);
+                  }
+                 
+                  $new_paln_id=$new_plan->id;
+
+            }
+            
+			return $new_paln_id;
 	 }
 
-	 public function subscribeUser($cust,$inputdata)
+	 public function subscribeUser($new_plan_id,$cust,$inputdata)
 	 {
+
+        $timestamp=strtotime("+15 Days");
+
     
 		\Stripe\Stripe::setApiKey($this->config->item('stripe_secret'));
 		$stripe = new \Stripe\StripeClient('sk_test_51GyDZVELvDFHHRjV8uydQHeKfpp5nM2JI7H1pBIGDxRFYCH7aUSTmF9QiXXhOHMVzUbT0xTBnDDFVwSrqaQVR7GH00WXGdUw1n');
 
-        // $planid=getPlanId();
+		// $planid=getPlanId();
     
-
-		$plan_id=$inputdata->post('plan_id');
+		// $plan_id=$inputdata->post('plan_id');
 
 	//	 echo "**********************'".$inputdata."'";
 
 		   $subscription=$stripe->subscriptions->create([
 			'customer' => $cust->id,
 			'items' => [
-			  ['price' => $plan_id],
-			],
+			  ['price' => $new_plan_id],
+            ],
+            'trial_end' => $timestamp,
+
 		  ]);
 
 		  return  $subscription;
 	 }
 
-	 public function addUser($inputdata){
+	 public function addUser($inputdata,$cust){
 
 		$full_name=$inputdata->post('full_name');
 		$contact_no=$inputdata->post('contact_no');
@@ -1194,7 +1461,8 @@ echo 1243;die;	 */
 		$gender=$inputdata->post('gender');
 		$no_of_web_access=$inputdata->post('no_of_web_access');
 		$no_of_mobile_access=$inputdata->post('no_of_mobile_access');
-	$newval='';
+    $newval='';
+       $customer_id=$cust->id;
 
 		$generatedKeys = array();		
 		
@@ -1212,7 +1480,7 @@ echo 1243;die;	 */
 
 		// $sql = "INSERT INTO user(`full_name`, `contact_no`, `email_address`, `password`, `dob`, `gender`, `no_of_web_access`,no_of_mobile_access) VALUES('".$full_name."','".$contact_no."','".$email_address."','".$password."','".$dob."','".$gender."','".$no_of_web_access."','".$no_of_mobile_access."')";
     
-		$sql = "INSERT INTO user_login(`full_name`, `contact_no`, `username`, `password`, `no_of_web_access`,no_of_mobile_access) VALUES('".$full_name."','".$contact_no."','".$email_address."','".$password."','".$no_of_web_access."','".$no_of_mobile_access."')";
+		$sql = "INSERT INTO user_login(`full_name`, `contact_no`, `username`, `password`, `no_of_web_access`,no_of_mobile_access, `customer_id`) VALUES('".$full_name."','".$contact_no."','".$email_address."','".$password."','".$no_of_web_access."','".$no_of_mobile_access."','".$customer_id."')";
         
 		if ($con->query($sql) === TRUE) {
 			$last_id = $con->insert_id;
@@ -1223,7 +1491,7 @@ echo 1243;die;	 */
   
         for ($i = 0; $i < $totalkeys; $i++)
 	     {
-			$val="";
+			 $val="";
             $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; 
 
             $Gkey=time().''.substr(str_shuffle($str_result),  
@@ -1233,7 +1501,7 @@ echo 1243;die;	 */
                 $msql = "UPDATE user_login SET license_key='".$Gkey."' WHERE id='".$last_id."'";
          
                 if ($con->query($msql) === TRUE) {
-                    
+                    echo "success";
                    $resultval= $this->sendLicenseKey($email_address,$Gkey);
                 }
             }

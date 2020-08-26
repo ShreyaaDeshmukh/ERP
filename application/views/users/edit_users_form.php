@@ -47,12 +47,14 @@
                 <div class="panel panel-bd lobidrag">
                     <div class="panel-heading">
                         <div class="panel-title">
+                            
                             <h4><?php echo display('user_edit') ?> </h4>
                         </div>
                     </div>
                     <?php echo form_open_multipart('User/user_update', array('class' => 'form-vertical', 'name' => 'ef')) ?>
 
                     <div class="panel-body">
+                        <h4><?php echo '{id}' ?></h4>
 
                         <div class="form-group row">
                             <label for="bank_name" class="col-sm-3 col-form-label"><?php echo display('first_name') ?> <i class="text-danger">*</i></label>

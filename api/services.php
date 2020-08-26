@@ -218,13 +218,7 @@
 				$result = newlogin($con,$json);
 				echo json_encode($result);
 				break;
-
-				case 'checklicense':
-					$result = checklicense($con,$json);
-					echo json_encode($result);
-					break;
-			
-
+				
 				case 'checkuser':
 				$result = checkuser($con,$json);
 				echo json_encode($result);
