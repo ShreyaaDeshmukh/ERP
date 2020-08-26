@@ -1,0 +1,174 @@
+h1,h2,h3,h4,h5,h6{
+    margin: 0px;
+    padding: 0px;
+}
+/*--=== container by address===--*/
+p{
+    padding: 0px;
+    margin: :0px;
+}
+.container{
+    max-width:750px;
+    margin: 0 auto;
+    height: 500px;
+    overflow: hidden;
+}
+.border-bottom {
+    border-bottom: double;
+    overflow: hidden;
+    padding: 40px 0px
+}
+ .header_top {
+    width: 33%;
+    float: left;
+     overflow: hidden;  
+}
+.header_titel {
+    margin-left: 22px;
+}
+.header_titel h3 { 
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
+} 
+.header_titel h5 {
+    display: inline-block;
+    padding: 9px 13px;
+    text-transform: capitalize;
+    border: 1px solid #ccc; 
+} 
+
+.header_titeler {
+    margin-left: 22px;
+}
+.header_titeler h5 {
+    display: inline-block;
+    padding: 9px 13px;
+    margin-left: 10px;
+    text-transform: capitalize;
+    border: 1px solid #ccc;
+}
+
+.header_titeler h3 { 
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
+} 
+.logo_padd { 
+    overflow: hidden;
+    margin-bottom: 25px;
+    padding: 25px 0px;
+}
+/*--=== container by address===--*/
+.logo_left h5 {
+    text-transform: capitalize;
+    font-size: 15px;
+    font-weight: 400;
+    color: #222;
+} 
+
+.logo_left {
+    float: left; 
+} 
+.logo_right {
+    float: right;
+}  
+.logo_left span { 
+    border-bottom: dotted #7d7c7c;
+    border-width: 2px;
+    padding: 0px 10px;
+
+}
+.logo_right h5 {
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: capitalize;
+    color: #222;
+} 
+.logo_content {
+    margin-bottom: 25px;
+    overflow: hidden;
+} 
+/*--=== container by maney_dis===--*/
+.maney_dis h5 {
+    font-size: 13px; 
+    font-weight: 400;
+    color: #222;
+}
+.maney_dis span {
+    font-size: 12px;
+    font-weight: 400;
+    border-bottom: dotted #7d7c7c;
+    border-width: 2px;
+    padding: 0px 99px;
+    
+}
+.maney_dis-padd {
+    padding-bottom: 25px;
+    overflow: hidden;
+}
+ 
+.maney_disri h5 {
+    font-size: 13px; 
+    font-weight: 400;
+    color: #222;
+}
+.maney_disri span {
+    font-size: 12px;
+    font-weight: 400;
+    border-bottom: dotted #7d7c7c;
+    border-width: 2px;
+    padding: 0px 99px;
+    
+}
+.maney_disrip span {
+    font-size: 12px;
+    font-weight: 400;
+    border-bottom: dotted #7d7c7c;
+    border-width: 2px;
+    padding: 0px 300px;
+    
+}
+/*--=== container by signe_left===--*/
+ .signe_left {
+    float: left;
+     overflow: hidden;
+     border-top: dotted #7d7c7c;
+     border-width: 2px;
+    margin-top: 30px;
+} 
+.signe_right h5,
+.signe_left h5 {
+    font-size: 13px;
+    font-weight: 400;
+    color: #222;
+} 
+.signe_right {
+    float: right;
+    border-top: dotted #7d7c7c;
+    border-width: 2px;
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 660px){
+    .maney_dis h5 { 
+        line-height: 50px;
+    }
+    
+}
+@media screen and (max-width: 360px){
+    .logo_left h5 { 
+    line-height: 45px;
+}
+    .maney_disri h5 { 
+    line-height: 48px;
+}
+    
+}
+hr.style3 {
+	border-top: 1px dashed #8c8b8b;
+}

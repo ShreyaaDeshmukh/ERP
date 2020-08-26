@@ -1,0 +1,5 @@
+building_name,aisle_name,slot_name,level_name,bin_name,location_name,location_unique_key
+B7-E-24-A,B7,A7,L1,A12,block 7,B77E24A
+B7-E-39-A,B7,A7,L1,A12,block 7,B77E39A
+B7-G-01-A,B7,A7,L1,A12,block 7,B77G01A
+B7-G-02-A,B7,A7,L1,A12,block 7,B77G02A

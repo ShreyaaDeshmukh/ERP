@@ -1,0 +1,2 @@
+supplier_id,category_id,product_name,price,supplier_price,unit,cartoon_quantity,tax,  product_model,product_details,  image,status
+1CFWC2V5US1EVAWJBA84,2O8J8QQG8PSBWJ2,CSV Test Product,200,150,kg,10,50,asa-202,This is csv product,http://localhost/inventory_demo/sales_erp/my-assets/image/product.png,1

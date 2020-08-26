@@ -1,0 +1,5 @@
+building_name,aisle_name,slot_name,level_name,bin_name,location_name,location_unique_key
+Building-1,B1,S1,L1,A11,B1-S1-L1-A11,B1S1L1A11
+Building-1,B2,S2,L1,A12,B2-S2-L1-A12,B2S2L1A12
+Building-1,B3,S3,L1,A13,B3-S3-L1-A13,B3S3L1A13
+Building-1,B4,S4,L1,A14,B4-S4-L1-A14,B4S4L1A14

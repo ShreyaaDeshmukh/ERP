@@ -1,0 +1,5 @@
+
+Link: http://13.233.178.224/Admin/
+ADmin Database
+root
+root12345
